@@ -1,7 +1,5 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, ForeignKey, Integer, UniqueConstraint
 
-from models.configuration.app import Base
 from models.features.feature import FeatureSaModel
 
 

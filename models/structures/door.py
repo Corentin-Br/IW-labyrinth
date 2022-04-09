@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, List
 from sqlalchemy import Column, Integer
 from sqlalchemy.orm import relationship
 
-from models.configuration.app import Base
+from app.configuration.database import Base
 
 if TYPE_CHECKING:
     from .wall import WallSaModel

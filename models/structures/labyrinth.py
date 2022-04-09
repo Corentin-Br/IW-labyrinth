@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, List
 from sqlalchemy import Boolean, Column, Integer, String
 from sqlalchemy.orm import relationship
 
-from models.configuration.app import Base
+from app.configuration.database import Base
 
 if TYPE_CHECKING:
     from .area import AreaSaModel
@@ -17,9 +17,5 @@ class LabyrinthSaModel(Base):
     vote_enabled = Column(Boolean, nullable=False)
     name = Column(String, nullable=False)
 
-    floors: List["FloorSaModel"] = relationship(
-        "FloorSaModel", back_populates="labyrinth", uselist=True
-    )
-    areas: List["AreaSaModel"] = relationship(
-        "AreaSaModel", back_populates="labyrinth", uselist=True
-    )
+    floors: List["FloorSaModel"] = relationship("FloorSaModel", back_populates="labyrinth", uselist=True)
+    areas: List["AreaSaModel"] = relationship("AreaSaModel", back_populates="labyrinth", uselist=True)

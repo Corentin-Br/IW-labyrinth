@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, List
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
-from models.configuration.app import Base
+from app.configuration.database import Base
 
 if TYPE_CHECKING:
     from .labyrinth import LabyrinthSaModel
@@ -17,7 +17,5 @@ class FloorSaModel(Base):
     level = Column(Integer, nullable=False)
     labyrinth_id = Column(Integer, ForeignKey("labyrinth.id"), nullable=False)
 
-    labyrinth: "LabyrinthSaModel" = relationship(
-        "LabyrinthSaModel", back_populates="floors"
-    )
+    labyrinth: "LabyrinthSaModel" = relationship("LabyrinthSaModel", back_populates="floors")
     tiles: List["TileSaModel"] = relationship("TileSaModel", back_populates="tiles")

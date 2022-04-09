@@ -1,0 +1,1 @@
+sqlalchemy_url: sqlite:///test_database.sqlite3?check_same_thread=false

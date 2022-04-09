@@ -3,9 +3,8 @@ from typing import TYPE_CHECKING, List
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.orm import relationship
 
-from models.configuration.app import Base
+from app.configuration.database import Base, SqliteDecimal
 
-from ..configuration.database import SqliteDecimal
 from ..utils.associations.player_to_close_tiles import player_to_close_tiles_table
 from ..utils.associations.player_to_monster_sight_tiles import player_to_monster_sight_tiles_table
 
@@ -27,7 +26,7 @@ class TileSaModel(Base):
     checked = Column(Boolean, default=False, nullable=False)
     minimum_increase_in_monster_spawn = Column(SqliteDecimal, nullable=False)
     coefficient_increase_in_monster_spawn = Column(SqliteDecimal, nullable=False)
-    covered_in_shadows = Column(Boolean, nullable=False)  # beacon flag.
+    hidden = Column(Boolean, nullable=False)  # beacon flag.
 
     areas: List["AreaSaModel"] = relationship("AreaSaModel", secondary="tile_to_area_table", uselist=True)
     floor: "FloorSaModel" = relationship("FloorSaModel", back_populates="tiles")

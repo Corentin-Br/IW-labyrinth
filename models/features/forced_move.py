@@ -1,8 +1,5 @@
-from enum import Enum
+from sqlalchemy import Column, Enum, ForeignKey, Integer
 
-from sqlalchemy import Boolean, Column, ForeignKey, Integer
-
-from models.configuration.app import Base
 from models.features.feature import FeatureSaModel
 from models.utils.enums.directions import DirectionEnum
 

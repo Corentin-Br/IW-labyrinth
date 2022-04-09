@@ -1,16 +1,18 @@
 from tokenize import String
 from typing import TYPE_CHECKING, List
 
-from sqlalchemy import Column, ForeignKey, Integer
+from sqlalchemy import Column, Integer
 from sqlalchemy.orm import relationship
 
-from models.configuration.app import Base
+from app.configuration.database import Base
 
 if TYPE_CHECKING:
     from .tile import TileSaModel
 
 
 class AreaSaModel(Base):
+    # It's basically acting as an association table to link lots of tiles to X, instead of needing lots of foreign
+    # keys on tiles.
     __tablename__ = "area"
 
     id = Column(Integer, primary_key=True)

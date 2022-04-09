@@ -3,8 +3,6 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Boolean, Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
-from models.configuration.app import Base
-
 from .feature import FeatureSaModel
 
 if TYPE_CHECKING:

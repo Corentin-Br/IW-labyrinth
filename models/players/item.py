@@ -1,12 +1,11 @@
-from sqlalchemy import Column, Enum, ForeignKey, Integer
+from sqlalchemy import Column, Integer, String
 
-from models.configuration.app import Base
-from models.utils.enums.items import ItemEnum
+from app.configuration.database import Base
 
 
 class ItemSaModel(Base):
     __tablename__ = "item"
 
     id = Column(Integer, primary_key=True)
-    name = Column(Enum(ItemEnum), nullable=False)
-    player_id = Column(Integer, ForeignKey("player.id"), nullable=False)
+    name = Column(String, nullable=False)
+    rank = Column(Integer, nullable=False)

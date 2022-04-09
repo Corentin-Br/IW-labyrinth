@@ -1,6 +1,12 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from typing import TYPE_CHECKING
 
-from models.configuration.app import Base
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
+from app.configuration.database import Base
+
+if TYPE_CHECKING:
+    from models.structures.tile import TileSaModel
 
 
 class FeatureSaModel(Base):
@@ -12,5 +18,8 @@ class FeatureSaModel(Base):
     )  # Determines if the feature is visible in the labyrinth/can be triggered.
     tile_id = Column(Integer, ForeignKey("tile.id"), nullable=False)
     feature_type = Column(String, nullable=False)
+    image_name = Column(String, nullable=False)
+
+    tile: "TileSaModel" = relationship("TileSaModel")
 
     __mapper_args__ = {"polymorphic_identity": "feature", "polymorphic_on": feature_type}

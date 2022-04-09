@@ -5,12 +5,24 @@ name = "pypi"
 
 [packages]
 sqlalchemy = "*"
+uvicorn = "*"
+strawberry-graphql = "*"
+starlette = "<0.18"
+pyyaml = "*"
+attrs = "*"
+cattrs = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"
 isort = "*"
 mypy = "*"
 sqlalchemy2-stubs = "*"
+flake8 = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

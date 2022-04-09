@@ -3,14 +3,14 @@ from typing import TYPE_CHECKING, List
 from sqlalchemy import Boolean, Column, Enum, ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.orm import relationship
 
-from models.configuration.app import Base
+from app.configuration.database import Base
 from models.utils.enums.directions import DirectionEnum
 from models.utils.enums.symbols import SymbolEnum
 
 from ..utils.associations.wall_to_player import wall_to_player_table
 
 if TYPE_CHECKING:
-    from ..conditions.wall_full_condition import WallFullConditionSaModel
+    from ..conditions.player_full_condition import PlayerFullConditionSaModel
     from ..players.player import PlayerSaModel
     from .door import DoorSaModel
     from .tile import TileSaModel
@@ -31,8 +31,8 @@ class WallSaModel(Base):
     door: "DoorSaModel" = relationship("DoorSaModel", back_populates="walls")
 
     allowed_players: List["PlayerSaModel"] = relationship("PlayerSaModel", secondary=wall_to_player_table)
-    alternative_conditions: List["WallFullConditionSaModel"] = relationship(
-        "WallFullConditionSaModel"
+    alternative_conditions: List["PlayerFullConditionSaModel"] = relationship(
+        "WallFullConditionSaModel", secondary="player_full_condition_to_wall_table"
     )  # Each condition is itself composed of base conditions linked by AND. Each of those alternative conditions are
     # in turn linked by OR. A rough pseudo-code for checking them should be
     # for cond in wall.alternative_conditions:

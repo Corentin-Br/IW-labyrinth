@@ -4,11 +4,11 @@ from sqlalchemy import Boolean, Column, Enum, ForeignKey, Integer, String
 from sqlalchemy.dialects.sqlite import DATETIME as sqlite_datetime
 from sqlalchemy.orm import relationship
 
-from models.configuration.app import Base
+from app.configuration.database import Base, SqliteDecimal
 from models.utils.enums.directions import DirectionEnum
 
-from ..configuration.database import SqliteDecimal
 from ..utils.associations.player_to_close_tiles import player_to_close_tiles_table
+from ..utils.associations.player_to_item import player_to_item_table
 from ..utils.associations.player_to_monster_sight_tiles import player_to_monster_sight_tiles_table
 from ..utils.associations.player_to_seen_tiles import player_to_seen_tiles_table
 
@@ -36,6 +36,8 @@ class PlayerSaModel(Base):
     is_leader = Column(Boolean, nullable=False)
     resurrected_count = Column(Integer, nullable=False)
     time_since_last_item = Column(sqlite_datetime)
+    in_dangerous_area = Column(Boolean, nullable=False)
+    movement_modification = Column(Enum(DirectionEnum), nullable=False)
 
     # Bonus Attributes
     secret_discoveries = Column(Integer, default=0, nullable=False)
@@ -76,6 +78,6 @@ class PlayerSaModel(Base):
     tiles_marked_by_monster_sight: List["TileSaModel"] = relationship(
         "TileSaModel", secondary=player_to_monster_sight_tiles_table
     )
-    tiles_walked: List["TileSaModel"] = relationship("TileSaModel", secondary=player_to_seen_tiles_table)
+    tiles_walked: List["TileSaModel"] = relationship("TileSaModel", secondary=player_to_seen_tiles_table, uselist=True)
     team: "TeamSaModel" = relationship("TeamSaModel", back_populates="players")
-    inventory: List["ItemSaModel"] = relationship("ItemSaModel")
+    inventory: List["ItemSaModel"] = relationship("ItemSaModel", uselist=True, secondary=player_to_item_table)
